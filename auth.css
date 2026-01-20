@@ -1,0 +1,123 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: radial-gradient(circle at top left, #0a0f1f, #05070d);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.auth-box {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 40px 50px;
+  box-shadow: 0 0 25px rgba(0, 212, 255, 0.2);
+  width: 380px;
+  text-align: center;
+  animation: fadeIn 0.8s ease;
+}
+
+.auth-box h2 {
+  margin-bottom: 25px;
+  font-size: 28px;
+  color: #00d4ff;
+  text-shadow: 0 0 15px #00d4ff;
+}
+
+.input-box {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.input-box i {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #00d4ff;
+}
+
+.input-box input {
+  width: 100%;
+  padding: 12px 15px 12px 45px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: white;
+  outline: none;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.input-box input:focus {
+  border-color: #00d4ff;
+  box-shadow: 0 0 10px #00d4ff;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #00d4ff, #007bff);
+  color: white;
+  border: none;
+  padding: 12px 0;
+  width: 100%;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 17px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 15px #00d4ff;
+  transform: translateY(-2px);
+}
+
+.text-small {
+  margin-top: 20px;
+  color: #aaa;
+  font-size: 14px;
+}
+
+.text-small a {
+  color: #00d4ff;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.text-small a:hover {
+  text-shadow: 0 0 10px #00d4ff;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-box {
+    width: 90%;
+    padding: 30px 25px;
+  }
+}

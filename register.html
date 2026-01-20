@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register | Nuraddin Dev</title>
+  <link rel="stylesheet" href="auth.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+</head>
+<body>
+  <div class="auth-container">
+    <form class="auth-box">
+      <h2>Create Account</h2>
+
+      <div class="input-box">
+        <i class="fa-solid fa-user"></i>
+        <input type="text" placeholder="Username" required>
+      </div>
+
+      <div class="input-box">
+        <i class="fa-solid fa-envelope"></i>
+        <input type="email" placeholder="Email" required>
+      </div>
+
+      <div class="input-box">
+        <i class="fa-solid fa-lock"></i>
+        <input type="password" placeholder="Password" required>
+      </div>
+
+      <button type="submit" class="btn-primary">Register</button>
+
+      <p class="text-small">
+        Already have an account? <a href="login.html">Login</a>
+      </p>
+    </form>
+  </div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, updateProfile } 
+    from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAaredpWz9oD6Y59ZKWAu-7iI7PEnpnd1U",
+    authDomain: "web-service-ed94f.firebaseapp.com",
+    projectId: "web-service-ed94f",
+    storageBucket: "web-service-ed94f.firebasestorage.app",
+    messagingSenderId: "328229943883",
+    appId: "1:328229943883:web:c00ba678dc529d87282bce",
+    measurementId: "G-JRZJ5L8YZS"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const form = document.querySelector(".auth-box");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const username = form.querySelector('input[placeholder="Username"]').value.trim();
+    const email = form.querySelector('input[type="email"]').value.trim();
+    const password = form.querySelector('input[type="password"]').value.trim();
+
+    if (!username || !email || !password) {
+      alert("⚠️ Please fill in all fields.");
+      return;
+    }
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+      await updateProfile(userCredential.user, { displayName: username });
+
+      alert(`✅ Welcome, ${username}! Registration successful.`);
+      window.location.href = "dashboard.html";
+    } 
+    catch (error) {
+      if (error.code === "auth/email-already-in-use") {
+        alert("⚠️ This email is already registered. Please use another one or log in.");
+      } 
+      else if (error.code === "auth/invalid-email") {
+        alert("❌ Please enter a valid email address.");
+      } 
+      else if (error.code === "auth/weak-password") {
+        alert("⚠️ Password should be at least 6 characters.");
+      } 
+      else {
+        alert("❌ " + error.message);
+      }
+    }
+  });
+</script>
+</body>
+</html> 

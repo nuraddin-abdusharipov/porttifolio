@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Nuraddin Dev</title>
+  <link rel="stylesheet" href="auth.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: radial-gradient(circle at top left, #0a0f1f, #05070d);
+      color: white;
+      overflow: hidden;
+    }
+
+    .dashboard-box {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 50px 70px;
+      box-shadow: 0 0 25px rgba(0, 212, 255, 0.2);
+      text-align: center;
+      animation: fadeIn 0.8s ease;
+    }
+
+    h2 {
+      color: #00d4ff;
+      font-size: 30px;
+      text-shadow: 0 0 10px #00d4ff;
+    }
+
+    p {
+      margin: 20px 0;
+      color: #ccc;
+      font-size: 18px;
+    }
+
+    .btn-logout {
+      background: linear-gradient(135deg, #00d4ff, #007bff);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 17px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-logout:hover {
+      box-shadow: 0 0 15px #00d4ff;
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-box">
+    <h2>Welcome, <span id="username">Loading...</span> 👋</h2>
+    <p>This is your personal dashboard.</p>
+    <button class="btn-logout" id="logoutBtn">Logout</button>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } 
+      from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+    const firebaseConfig = {
+    apiKey: "AIzaSyAaredpWz9oD6Y59ZKWAu-7iI7PEnpnd1U",
+    authDomain: "web-service-ed94f.firebaseapp.com",
+    projectId: "web-service-ed94f",
+    storageBucket: "web-service-ed94f.firebasestorage.app",
+    messagingSenderId: "328229943883",
+    appId: "1:328229943883:web:c00ba678dc529d87282bce",
+    measurementId: "G-JRZJ5L8YZS"
+  };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const usernameSpan = document.getElementById("username");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        usernameSpan.textContent = user.displayName || user.email.split("@")[0];
+      } else {
+        window.location.href = "index.html";
+      }
+    });
+
+    logoutBtn.addEventListener("click", async () => {
+      await signOut(auth);
+      alert("👋 Logged out successfully!");
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>

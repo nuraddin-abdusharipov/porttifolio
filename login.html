@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Nuraddin Dev</title>
+  <link rel="stylesheet" href="auth.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+</head>
+<body>
+  <div class="auth-container">
+    <form class="auth-box">
+      <h2>Sign In</h2>
+      <div class="input-box">
+        <i class="fa-solid fa-envelope"></i>
+        <input type="email" placeholder="Email" required>
+      </div>
+      <div class="input-box">
+        <i class="fa-solid fa-lock"></i>
+        <input type="password" placeholder="Password" required>
+      </div>
+      <button type="submit" class="btn-primary">Login</button>
+      <p class="text-small">
+        Don't have an account? <a href="register.html">Register</a>
+      </p>
+    </form>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } 
+      from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyAaredpWz9oD6Y59ZKWAu-7iI7PEnpnd1U",
+        authDomain: "web-service-ed94f.firebaseapp.com",
+        projectId: "web-service-ed94f",
+        storageBucket: "web-service-ed94f.firebasestorage.app",
+        messagingSenderId: "328229943883",
+        appId: "1:328229943883:web:c00ba678dc529d87282bce",
+        measurementId: "G-JRZJ5L8YZS"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const form = document.querySelector(".auth-box");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = form.querySelector('input[type="email"]').value.trim();
+      const password = form.querySelector('input[type="password"]').value.trim();
+
+      if (!email || !password) {
+        alert("⚠️ Please fill in all fields.");
+        return;
+      }
+
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        alert(`✅ Welcome back, ${user.displayName || user.email.split("@")[0]}!`);
+        window.location.href = "dashboard.html";
+      } 
+      catch (error) {
+        if (error.code === "auth/user-not-found") {
+          alert("❌ No account found with this email.");
+        } 
+        else if (error.code === "auth/wrong-password") {
+          alert("⚠️ Incorrect password. Please try again.");
+        } 
+        else if (error.code === "auth/invalid-email") {
+          alert("❌ Invalid email address.");
+        } 
+        else {
+          alert("Error");
+        }
+      }
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        window.location.href = "dashboard.html";
+      }
+    });
+  </script>
+</body>
+</html>
