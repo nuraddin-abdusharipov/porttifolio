@@ -276,6 +276,10 @@ nav .btn-primary {
   border: 1px solid rgba(255,255,255,0.1);
   transition: 0.4s ease;
   overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  text-decoration: none;
   position: relative;
   cursor: pointer;
 }
