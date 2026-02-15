@@ -279,6 +279,9 @@ nav .btn-primary {
   align-items: center;
   justify-content: center;
   display: flex;
+  color: white;
+  font-size: 25px;
+  flex-wrap: wrap;
   text-decoration: none;
   position: relative;
   cursor: pointer;
