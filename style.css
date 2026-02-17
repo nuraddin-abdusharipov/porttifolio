@@ -265,7 +265,7 @@ nav .btn-primary {
   display: flex;
   gap: 40px;
   width: max-content;
-  animation: scrollProjects 10s linear infinite;
+  animation: scrollProjects 12s linear infinite;
 }
 
 .portfolio-card {
