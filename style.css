@@ -312,7 +312,7 @@ nav .btn-primary {
     display: flex;
     gap: 30px;
     width: max-content;
-    animation: scrollPortfolio 25s linear infinite;
+    animation: scrollPortfolio 30s linear infinite;
     padding: 20px 0;
 }
 
